@@ -10,10 +10,8 @@
 
 	<!-- TODO add the form controls that the student will use to enter their response. -->
 
-	<!-- INICIO DO FORM P/ SUBMETER A RESPOSTA    
-
+	<!-- INICIO DO FORM P/ SUBMETER A RESPOSTA 
 	Construido baseado no display.html localizado em (DIRETÓRIO RAIZ DO MOODLE )/question/type/shortanswer
-
 		-->
 	
 		<div class="prompt">
@@ -21,7 +19,8 @@
 		  </div>
 
 		  <div class="answer">
-		    <input type="text" class="<?php echo $class; ?>" <?php echo "$readonly $inputname $value"; ?> size="80"/>
+		<i>Maximo de 80 caracteres    </i>
+		<input type="text" class="<?php echo $class; ?>" <?php echo "$readonly $inputname $value"; ?> size="80"/>
 		    <?php echo $feedbackimg; ?>
 		  </div>
 
