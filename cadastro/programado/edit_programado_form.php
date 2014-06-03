@@ -19,35 +19,43 @@ require_once($CFG->dirroot.'/question/type/edit_question_form.php');
 class question_edit_programado_form extends question_edit_form {
     function definition_inner(&$mform) {
        
-       $mform->addElement('textarea', 'funcao_solucao', get_string('funcao_solucao', 'qtype_programado'));
 
        $opcoes = array(
-         'texto'=>'Texto',
-         'valores'=>'Faixa de valores',
-         'letras'=>'Somente letras',
-         'numeros'=>'Somente números',
-         'lenum'=>'Somente letras e números',
-         'regex'=>'Expressão regular'
-    );
+            'texto'=>'Texto Livre',
+            'valores'=>'Faixa de valores',
+            'letras'=>'Somente letras',
+            'numeros'=>'Somente números',
+            'lenum'=>'Somente letras e números',
+            'regex'=>'Expressão regular'
+        );
 
-       $mform->addElement('select', 'formato_resposta', get_string('formato_resposta', 'qtype_programado'),$opcoes);
-
-       $mform->addElement('text', 'regex_programado', get_string('regex_programado', 'qtype_programado'));
-
-       $mform->addElement('text', 'valores_minimo_programado', get_string('valores_minimo_programado', 'qtype_programado'));
-
-       $mform->addElement('text', 'valores_maximo_programado', get_string('valores_maximo_programado', 'qtype_programado'));
+        /**
+         * Adicionando campos
+         */
+        $mform->addElement('textarea', 'funcao_solucao', get_string('funcao_solucao', 'qtype_programado'), 'wrap="virtual" rows="20" cols="50"');
+        $mform->addElement('select', 'formato_resposta', get_string('formato_resposta', 'qtype_programado'),$opcoes);
+        $mform->addElement('text', 'regex_programado', get_string('regex_programado', 'qtype_programado'), 'size="51"');
+        $mform->addElement('text', 'valores_minimo_programado', get_string('valores_minimo_programado', 'qtype_programado'), 'size="51"');
+        $mform->addElement('text', 'valores_maximo_programado', get_string('valores_maximo_programado', 'qtype_programado'), 'size="51"');
     
 
-        //habilitando campos
+        /**
+         * Habilitando campos
+         */
         
         $mform->disabledIf('regex_programado', 'formato_resposta', 'neq', 'regex');
-
         $mform->disabledIf('valores_maximo_programado', 'formato_resposta', 'neq', 'valores');
-
         $mform->disabledIf('valores_minimo_programado', 'formato_resposta', 'neq', 'valores');
 
+        /**
+         * Ajudas
+         */
 
+        $mform->setHelpButton('funcao_solucao', array('funcao_solucao', get_string('funcao_solucao_help', 'qtype_programado'), 'qtype_programado'));
+        $mform->setHelpButton('formato_resposta', array('formato_resposta', get_string('formato_resposta_help', 'qtype_programado'), 'qtype_programado'));
+        $mform->setHelpButton('regex_programado', array('regex_programado', get_string('regex_programado_help', 'qtype_programado'), 'qtype_programado'));
+        $mform->setHelpButton('valores_minimo_programado', array('valores_minimo_programado', get_string('valores_minimo_programado_help', 'qtype_programado'), 'qtype_programado'));
+        $mform->setHelpButton('valores_maximo_programado', array('valores_maximo_programado', get_string('valores_maximo_programado_help', 'qtype_programado'), 'qtype_programado'));
     }
 
     function set_data($question) {

@@ -16,11 +16,11 @@ $string['formato_resposta'] = 'Formato de resposta';
 $string['regex_programado'] = 'Expressão regular';
 $string['valores_minimo_programado'] = 'Valor mínimo';
 $string['valores_maximo_programado'] = 'Valor máximo';
-$string[''] = '';
-$string[''] = '';
-$string[''] = '';
-$string[''] = '';
-$string[''] = '';
+$string['formato_resposta_help'] = 'formato de resposta';
+$string['regex_programado_help'] = 'expressão regular';
+$string['valores_minimo_programado_help'] = 'valor mínimo';
+$string['valores_maximo_programado_help'] = 'valor máximo';
+$string['funcao_solucao_help'] = 'função para solução do problema';
 $string[''] = '';
 // TODO add any other requred strings.
 
