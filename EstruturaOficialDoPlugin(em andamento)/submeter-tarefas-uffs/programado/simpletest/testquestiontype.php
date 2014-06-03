@@ -2,23 +2,23 @@
 /**
  * Unit tests for this question type.
  *
- * @copyright &copy; 2006 YOURNAME
- * @author YOUREMAILADDRESS
+ * @copyright &copy; 2006 Turma Optativa I
+ * @author gttonin@gmail.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package YOURPACKAGENAME
+ * @package tipo_programado
  *//** */
     
 require_once(dirname(__FILE__) . '/../../../../config.php');
 
 global $CFG;
 require_once($CFG->libdir . '/simpletestlib.php');
-require_once($CFG->dirroot . '/question/type/QTYPEID/questiontype.php');
+require_once($CFG->dirroot . '/question/type/programado/questiontype.php');
 
-class QTYPEID_qtype_test extends UnitTestCase {
+class programado_qtype_test extends UnitTestCase {
     var $qtype;
     
     function setUp() {
-        $this->qtype = new QTYPEID_qtype();
+        $this->qtype = new programado_qtype();
     }
     
     function tearDown() {
@@ -26,8 +26,10 @@ class QTYPEID_qtype_test extends UnitTestCase {
     }
 
     function test_name() {
-        $this->assertEqual($this->qtype->name(), 'QTYPEID');
+        $this->assertEqual($this->qtype->name(), 'programado');
     }
+
+	echo "This is my first test with the plugin moodle UFFS WAW!";
     
     // TODO write unit tests for the other methods of the question type class.
 }

@@ -1,22 +1,22 @@
 <?php
 /**
- * The question type class for the QTYPENAME question type.
+ * The question type class for the Programado question type.
  *
- * @copyright &copy; 2006 YOURNAME
- * @author YOUREMAILADDRESS
+ * @copyright &copy; 2006 Turma Optativa I
+ * @author gttonin@gmail.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package YOURPACKAGENAME
+ * @package tipo_programado
  *//** */
 
 /**
- * The QTYPENAME question class
+ * The Programado question class
  *
  * TODO give an overview of how the class works here.
  */
-class QTYPEID_qtype extends default_questiontype {
+class programado_qtype extends default_questiontype {
 
     function name() {
-        return 'QTYPEID';
+        return 'programado';
     }
     
     // TODO think about whether you need to override the is_manual_graded or
@@ -90,7 +90,7 @@ class QTYPEID_qtype extends default_questiontype {
     
         }
     
-        include("$CFG->dirroot/question/type/QTYPEID/display.html");
+        include("$CFG->dirroot/question/type/programado/display.html");
     }
     
     function grade_responses(&$question, &$state, $cmoptions) {
@@ -166,5 +166,5 @@ class QTYPEID_qtype extends default_questiontype {
 }
 
 // Register this question type with the system.
-question_register_questiontype(new QTYPEID_qtype());
+question_register_questiontype(new programado_qtype());
 ?>
