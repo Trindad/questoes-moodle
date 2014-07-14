@@ -1,0 +1,36 @@
+<!-- ======================================================
+  Construido baseado no display.html localizado em (DIRETÓRIO RAIZ DO MOODLE )/question/type/shortanswer
+    -->
+<div class="qtext">
+    <?php echo $questiontext; ?>
+</div>
+
+<?php if ($image) { ?>
+    <img class="qimage" src="<?php echo $image; ?>" alt="" />
+<?php } ?>
+
+<div class="ablock clearfix">
+    <!-- TODO add the form controls that the student will use to enter their response. -->
+<!-- INICIO DO FORM -->
+
+    <div class="prompt">
+          <?php echo get_string("answer", "quiz").': '; ?>
+    </div>
+
+  <div class="answer">
+    <p> questao short answer 123</p>
+    <input type="text" class="<?php echo $class; ?>" <?php echo "$readonly $inputname $value"; ?> size="80" />
+    <?php echo $feedbackimg; ?>
+  </div>
+
+<!-- FINAL DO FORM -->
+
+
+    <?php if ($feedback) { ?>
+        <div class="feedback">
+            <?php echo $feedback ?>
+        </div>
+    <?php } ?>
+
+    <?php $this->print_question_submit_buttons($question, $state, $cmoptions, $options); ?>
+</div>

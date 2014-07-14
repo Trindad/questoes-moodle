@@ -29,9 +29,27 @@ class programado_qtype_test extends UnitTestCase {
         $this->assertEqual($this->qtype->name(), 'programado');
     }
 
-	echo "This is my first test with the plugin moodle UFFS WAW!";
-    
-    // TODO write unit tests for the other methods of the question type class.
+    function test_nao_aceita_funcao_invalida()
+    {
+        $funcao1 = "0h9q3f2j4";
+        $funcao2 = "functoin diusao() { echo 'asduioasd'; }";
+    }
+
+    function test_aceita_funcao_valida()
+    {
+        
+    }
+
+    function test_pontuacao()
+    {
+        // cria uma questão
+        //
+    }
+
+    function test_deserializacao_funcao()
+    {
+        
+    }
 }
 
 ?>
