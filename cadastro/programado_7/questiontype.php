@@ -94,47 +94,7 @@ class programado_qtype extends default_questiontype {
     }
     
     function grade_responses(&$question, &$state, $cmoptions) {
-        // TODO assign a grade to the response in state.
-    }
-    
-    function compare_responses($question, $state, $teststate) {
-        // TODO write the code to return two different student responses, and
-        // return two if the should be considered the same.
-        return false;
-    }
-
-    /**
-     * Checks whether a response matches a given answer, taking the tolerance
-     * and units into account. Returns a true for if a response matches the
-     * answer, false if it doesn't.
-     */
-    function test_response(&$question, &$state, $answer) {
-        // TODO if your code uses the question_answer table, write a method to
-        // determine whether the student's response in $state matches the    
-        // answer in $answer.
-        return false;
-    }
-
-    function check_response(&$question, &$state){
-        // TODO
-        return false;
-    }
-
-    function get_correct_responses(&$question, &$state) {
-        // TODO
-        return false;
-    }
-
-    function get_all_responses(&$question, &$state) {
-        $result = new stdClass;
-        // TODO
-        return $result;
-    }
-
-    function get_actual_response($question, $state) {
-        // TODO
-        $responses = '';
-        return $responses;
+        
     }
 
     /**

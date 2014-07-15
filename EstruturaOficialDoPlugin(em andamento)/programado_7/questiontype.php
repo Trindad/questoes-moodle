@@ -1,22 +1,22 @@
 <?php
 /**
- * The question type class for the QTYPENAME question type.
+ * The question type class for the Programado question type.
  *
- * @copyright &copy; 2006 YOURNAME
- * @author YOUREMAILADDRESS
+ * @copyright &copy; 2006 Turma Optativa I
+ * @author gttonin@gmail.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package YOURPACKAGENAME
+ * @package tipo_programado
  *//** */
 
 /**
- * The QTYPENAME question class
+ * The Programado question class
  *
  * TODO give an overview of how the class works here.
  */
-class QTYPEID_qtype extends default_questiontype {
+class programado_qtype extends default_questiontype {
 
     function name() {
-        return 'QTYPEID';
+        return 'programado';
     }
     
     // TODO think about whether you need to override the is_manual_graded or
@@ -90,51 +90,11 @@ class QTYPEID_qtype extends default_questiontype {
     
         }
     
-        include("$CFG->dirroot/question/type/QTYPEID/display.html");
+        include("$CFG->dirroot/question/type/programado/display.html");
     }
     
     function grade_responses(&$question, &$state, $cmoptions) {
-        // TODO assign a grade to the response in state.
-    }
-    
-    function compare_responses($question, $state, $teststate) {
-        // TODO write the code to return two different student responses, and
-        // return two if the should be considered the same.
-        return false;
-    }
-
-    /**
-     * Checks whether a response matches a given answer, taking the tolerance
-     * and units into account. Returns a true for if a response matches the
-     * answer, false if it doesn't.
-     */
-    function test_response(&$question, &$state, $answer) {
-        // TODO if your code uses the question_answer table, write a method to
-        // determine whether the student's response in $state matches the    
-        // answer in $answer.
-        return false;
-    }
-
-    function check_response(&$question, &$state){
-        // TODO
-        return false;
-    }
-
-    function get_correct_responses(&$question, &$state) {
-        // TODO
-        return false;
-    }
-
-    function get_all_responses(&$question, &$state) {
-        $result = new stdClass;
-        // TODO
-        return $result;
-    }
-
-    function get_actual_response($question, $state) {
-        // TODO
-        $responses = '';
-        return $responses;
+        
     }
 
     /**
@@ -166,5 +126,5 @@ class QTYPEID_qtype extends default_questiontype {
 }
 
 // Register this question type with the system.
-question_register_questiontype(new QTYPEID_qtype());
+question_register_questiontype(new programado_qtype());
 ?>
