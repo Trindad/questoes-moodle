@@ -38,19 +38,8 @@ class question_edit_programado_form extends question_edit_form {
         $mform->addElement('html', '<div id="parametros-adicionais">');
 
         for ($i = 0; $i < 20; $i++) {
-            $mform->addElement("html", "<div class='linha-parametro'>");
-
-                $n = $i + 1;
-
-                $mform->addElement("html", "<div class='parametro-esquerda'>");
-                    $mform->addElement('text', "parametros_adicionais[{$i}]", "Parâmetro adicional {$n}", 'size="51" id="param-' . $i . '" class="parametro-adicional"');
-                $mform->addElement("html", "</div>");
-
-                $mform->addElement("html", "<div class='parametro-direita'>");
-                    $mform->addElement("html", "<button id='deletar-{$i}' class='btn-deletar'>Deletar</button>");
-                $mform->addElement("html", "</div>");
-
-            $mform->addElement("html", "</div>");
+            $n = $i + 1;
+            $mform->addElement('text', "parametros_adicionais[{$i}]", "Parâmetro adicional {$n}", 'size="51"');
         }
 
         $mform->addElement("html", "</div>");

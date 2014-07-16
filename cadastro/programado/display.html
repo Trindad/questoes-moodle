@@ -1,19 +1,24 @@
 <div class="qtext">
-    <?php echo $questiontext; ?>
+  <?php echo $questiontext; ?>
 </div>
 
 <?php if ($image) { ?>
-    <img class="qimage" src="<?php echo $image; ?>" alt="" />
+  <img class="qimage" src="<?php echo $image; ?>" alt="" />
 <?php } ?>
 
 <div class="ablock clearfix">
-    <!-- TODO add the form controls that the student will use to enter their response. -->
+  <div class="prompt">
+    <?php echo get_string("answer", "quiz").': '; ?>
+  </div>
 
-    <?php if ($feedback) { ?>
-        <div class="feedback">
-            <?php echo $feedback ?>
-        </div>
-    <?php } ?>
-
-    <?php $this->print_question_submit_buttons($question, $state, $cmoptions, $options); ?>
+  <div class="answer">
+    <input type="text" class="<?php echo $class; ?>" <?php echo "$readonly $inputname $value"; ?> size="80"/>
+    <?php echo $feedbackimg; ?>
+  </div>
+  <?php if ($feedback) { ?>
+    <div class="feedback">
+      <?php echo $feedback ?>
+    </div>
+  <?php } ?>
+  <?php $this->print_question_submit_buttons($question, $state, $cmoptions, $options); ?>
 </div>

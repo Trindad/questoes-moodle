@@ -10,7 +10,7 @@
 
 $string['addingprogramado'] = 'Adding Programado.';
 $string['editingprogramado'] = 'Editing Programado.';
-$string['programado'] = 'Programado';
+$string['programado'] = 'Programado.';
 $string['funcao_solucao'] = 'Função para solução do problema';
 $string['formato_resposta'] = 'Formato de resposta';
 $string['regex_programado'] = 'Expressão regular';

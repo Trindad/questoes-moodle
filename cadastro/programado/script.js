@@ -6,29 +6,41 @@ document.addEventListener('DOMContentLoaded', function(){
 	window.contador_campos = 0;
 	add_parametro.addEventListener( 'click', function(){
 		contador_campos++;
-		var parametros_adicionais = document.getElementById('parametros-adicionais');
-		var div = document.createElement("div");
 
-		var label = document.createElement("label");
-		var t = document.createTextNode("Parâmetro adicional "+contador_campos );
-		label.appendChild(t);
-
-		parametros_adicionais.appendChild(div);
-		var inp = document.createElement("input");
-		inp.name = "parametros_adicionais[]";
-		div.appendChild(label);
-		div.appendChild(inp);
-
-		var btn = document.createElement("button");
-		var t = document.createTextNode("Deletar");
-		btn.appendChild(t);
-		div.appendChild(btn);
-
-		btn.addEventListener('click',function(){
-			var pai = btn.parentNode;
-			pai.parentNode.removeChild(pai);
-
-		},true)
-
+		document.getElementsByClassName("linha-parametro")[contador_campos - 1].style.display = "block";
 	}, true );
+
+	var inputs = document.getElementsByClassName("parametro-adicional");
+
+	for (var j = 0; j < inputs.length; j++) {
+		var input = inputs[j];
+
+		console.log(input.value.length, input.parentNode.parentNode);
+
+		if (input.value.length) {
+			contador_campos++;
+			input.parentNode.parentNode.parentNode.parentNode.style.display = "block";
+		}
+	}
+
+	var botoes = document.getElementsByClassName("btn-deletar");
+
+	for (var i = 0; i < botoes.length; i++) {
+		var botao = botoes[i];
+
+		(function(botao) {
+			botao.addEventListener( 'click', function(e){
+				e.preventDefault();
+
+				contador_campos--;
+
+				var id = "id_param-" + (botao.id.split("-")[1]);
+				document.getElementById(id).value = "";
+				
+				botao.parentNode.parentNode.style.display = "none";
+				return false;
+			}, true );
+		})(botao);
+	};
+
 }, false);

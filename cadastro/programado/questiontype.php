@@ -13,7 +13,7 @@
  *
  * TODO give an overview of how the class works here.
  */
-class programado_qtype extends default_questiontype {
+class programado_qtype extends question_shortanswer_qtype {
 
     function name() {
         return 'programado';
@@ -24,16 +24,17 @@ class programado_qtype extends default_questiontype {
      */
     function get_question_options(&$question) {
     
-        $resultado = get_records('question_programado', 'question', $question->id, 'id ASC');
+        $temp = get_records('question_programado', 'question_id', $question->id, 'id ASC');
+        $resultado = array_shift($temp);
 
-        if (isset($resultado[0])) {
+        if ($resultado) {
             
-            $question->valores_minimo_programado = $resultado[0]->valor_minimo;
-            $question->valores_maximo_programado = $resultado[0]->valor_maximo;
-            $question->regex_programado = $resultado[0]->expressao_regular;
-            $question->formato_resposta = $resultado[0]->formato_resposta;
-            $question->funcao_solucao = $resultado[0]->funcao_solucao;
-            $question->parametros_adicionais = unserialize($resultado[0]->parametros_adicionais);
+            $question->valores_minimo_programado = $resultado->valor_minimo;
+            $question->valores_maximo_programado = $resultado->valor_maximo;
+            $question->regex_programado = $resultado->expressao_regular;
+            $question->formato_resposta = $resultado->formato_resposta;
+            $question->funcao_solucao = $resultado->funcao_solucao;
+            $question->parametros_adicionais = unserialize($resultado->parametros_adicionais);
         }
 
         return true;
@@ -45,8 +46,6 @@ class programado_qtype extends default_questiontype {
      */
     function save_question_options($question) {
         
-        echo "<pre>";
-
         $dados = new StdClass();
         $dados->funcao_solucao = $question->funcao_solucao;
         $dados->formato_resposta = $question->formato_resposta;
@@ -75,6 +74,49 @@ class programado_qtype extends default_questiontype {
         return true;
     }
 
+    function print_question_formulation_and_controls(&$question, &$state, $cmoptions, $options) {
+    /// This implementation is also used by question type 'numerical'
+        $readonly = empty($options->readonly) ? '' : 'readonly="readonly"';
+        $formatoptions = new stdClass;
+        $formatoptions->noclean = true;
+        $formatoptions->para = false;
+        $nameprefix = $question->name_prefix;
+
+        /// Print question text and media
+
+        $questiontext = format_text($question->questiontext,
+                $question->questiontextformat,
+                $formatoptions, $cmoptions->course);
+        $image = get_question_image($question);
+
+        /// Print input controls
+
+        if (isset($state->responses['']) && $state->responses[''] != '') {
+            $value = ' value="'.s($state->responses[''], true).'" ';
+        } else {
+            $value = ' value="" ';
+        }
+        $inputname = ' name="'.$nameprefix.'" ';
+
+        $feedback = '';
+        $class = '';
+        $feedbackimg = '';
+
+        if ($options->feedback) {
+            $class = question_get_feedback_class(0);
+            $feedbackimg = question_get_feedback_image(0);
+
+            if (isset($state->raw_grade) && $state->raw_grade > 0) {
+                // Answer was correct or partially correct.
+                $class = question_get_feedback_class($state->raw_grade);
+                $feedbackimg = question_get_feedback_image($state->raw_grade);
+            }
+        }
+
+        /// Removed correct answer, to be displayed later MDL-7496
+        include($this->get_display_html_path());
+    }
+
     /**
      * Deletes question from the question-type specific tables
      *
@@ -83,92 +125,53 @@ class programado_qtype extends default_questiontype {
      */
     function delete_question($questionid) {
         delete_records('question_programado', 'question_id', $questionid);
-        // TODO delete any    
         return true;
     }
 
 
-    function create_session_and_responses(&$question, &$state, $cmoptions, $attempt) {
-        // TODO create a blank repsonse in the $state->responses array, which    
-        // represents the situation before the student has made a response.
-        return true;
-    }
+    // function create_session_and_responses(&$question, &$state, $cmoptions, $attempt) {
+    //     // TODO create a blank repsonse in the $state->responses array, which    
+    //     // represents the situation before the student has made a response.
+    //     return true;
+    // }
 
-    function restore_session_and_responses(&$question, &$state) {
-        // TODO unpack $state->responses[''], which has just been loaded from the
-        // database field question_states.answer into the $state->responses array.
-        return true;
-    }
+    // function restore_session_and_responses(&$question, &$state) {
+    //     // TODO unpack $state->responses[''], which has just been loaded from the
+    //     // database field question_states.answer into the $state->responses array.
+    //     return true;
+    // }
     
-    function save_session_and_responses(&$question, &$state) {
-        // TODO package up the students response from the $state->responses
-        // array into a string and save it in the question_states.answer field.
+    // function save_session_and_responses(&$question, &$state) {
+    //     // TODO package up the students response from the $state->responses
+    //     // array into a string and save it in the question_states.answer field.
     
-        $responses = '';
+    //     $responses = '';
     
-        return set_field('question_states', 'answer', $responses, 'id', $state->id);
-    }
-    
-    function print_question_formulation_and_controls(&$question, &$state, $cmoptions, $options) {
-        global $CFG;
-
-        $readonly = empty($options->readonly) ? '' : 'disabled="disabled"';
-
-        // Print formulation
-        $questiontext = $this->format_text($question->questiontext,$question->questiontextformat, $cmoptions);
-        $image = get_question_image($question, $cmoptions->course);
-    
-        // TODO prepare any other data necessary. For instance
-        $feedback = '';
-        if ($options->feedback) {
-    
-        }
-    
-        include("$CFG->dirroot/question/type/programado/display.html");
-    }
+    //     return set_field('question_states', 'answer', $responses, 'id', $state->id);
+    // }
     
     function grade_responses(&$question, &$state, $cmoptions) {
-        // TODO assign a grade to the response in state.
-    }
-    
-    function compare_responses($question, $state, $teststate) {
-        // TODO write the code to return two different student responses, and
-        // return two if the should be considered the same.
-        return false;
-    }
+        $funcao = $question->funcao_solucao;
 
-    /**
-     * Checks whether a response matches a given answer, taking the tolerance
-     * and units into account. Returns a true for if a response matches the
-     * answer, false if it doesn't.
-     */
-    function test_response(&$question, &$state, $answer) {
-        // TODO if your code uses the question_answer table, write a method to
-        // determine whether the student's response in $state matches the    
-        // answer in $answer.
-        return false;
-    }
+        $copia = str_replace("function ", "", $funcao);
+        $posicaoParentese = strpos($copia, "(");
 
-    function check_response(&$question, &$state){
-        // TODO
-        return false;
-    }
+        $nome = substr($copia, 0, $posicaoParentese);
+        $novoNome = "funcaoCorrecaoProgramado";
 
-    function get_correct_responses(&$question, &$state) {
-        // TODO
-        return false;
-    }
+        $novaFuncao = str_replace($nome, $novoNome, $funcao);
 
-    function get_all_responses(&$question, &$state) {
-        $result = new stdClass;
-        // TODO
-        return $result;
-    }
+        eval($novaFuncao);
 
-    function get_actual_response($question, $state) {
-        // TODO
-        $responses = '';
-        return $responses;
+        $parametros = $question->parametros_adicionais;
+        array_unshift($parametros, $state->responses['']);
+
+        $state->raw_grade = call_user_func_array($novoNome, $parametros);
+        $state->raw_grade = min(max((float) $state->raw_grade,
+                            0.0), 1.0) * $question->maxgrade;
+        $state->event = ($state->event ==  QUESTION_EVENTCLOSE) ? QUESTION_EVENTCLOSEANDGRADE : QUESTION_EVENTGRADE;
+
+        return true;
     }
 
     /**
