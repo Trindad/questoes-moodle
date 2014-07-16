@@ -13,6 +13,7 @@
  *
  * TODO give an overview of how the class works here.
  */
+
 class programado_qtype extends question_shortanswer_qtype {
 
     function name() {
@@ -152,16 +153,9 @@ class programado_qtype extends question_shortanswer_qtype {
     
     function grade_responses(&$question, &$state, $cmoptions) {
         $funcao = $question->funcao_solucao;
-
-        $copia = str_replace("function ", "", $funcao);
-        $posicaoParentese = strpos($copia, "(");
-
-        $nome = substr($copia, 0, $posicaoParentese);
         $novoNome = "funcaoCorrecaoProgramado";
 
-        $novaFuncao = str_replace($nome, $novoNome, $funcao);
-
-        eval($novaFuncao);
+        $this->valida_funcao($funcao, $novoNome);
 
         $parametros = $question->parametros_adicionais;
         array_unshift($parametros, $state->responses['']);
@@ -172,6 +166,22 @@ class programado_qtype extends question_shortanswer_qtype {
         $state->event = ($state->event ==  QUESTION_EVENTCLOSE) ? QUESTION_EVENTCLOSEANDGRADE : QUESTION_EVENTGRADE;
 
         return true;
+    }
+
+    public function valida_funcao($funcao,$novoNome) {
+
+        if (!is_string($novoNome) || strlen($novoNome) < 1) {
+            throw new InvalidArgumentException("Novo nome inválido!");
+        }
+
+        $copia = str_replace("function ", "", $funcao);
+        $posicaoParentese = strpos($copia, "(");
+
+        $nome = substr($copia, 0, $posicaoParentese);
+
+        $novaFuncao = str_replace($nome, $novoNome, $funcao);
+
+        return eval($novaFuncao);
     }
 
     /**

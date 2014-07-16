@@ -29,7 +29,33 @@ class programado_qtype_test extends UnitTestCase {
         $this->assertEqual($this->qtype->name(), 'programado');
     }
     
-    // TODO write unit tests for the other methods of the question type class.
-}
+    function test_nao_aceita_funcao_invalida()
+    {
+        $funcao = "uydioasuidosa";
+        $this->assertFalse($this->qtype->valida_funcao($funcao, "teste_um_invalido"));
+        $this->assertFalse(function_exists("teste_um_invalido"));
+    }
 
-?>
+    function test_aceita_funcao_valida()
+    {
+        $funcao = <<<FUNC
+function correcao($resposta, $arg1) {
+    $teste = base_convert($arg1, 10, 16);
+
+    if ($teste == $resposta) {
+        return 1;
+    }
+
+    return 0;
+}
+FUNC;
+        $this->assertTrue($this->qtype->valida_funcao($funcao, "teste_um_super_ultra_valido"));
+        $this->assertTrue(function_exists("teste_um_super_ultra_valido"));
+    }
+
+    function test_lanca_excecao_nome_invalido() {
+        $funcao = "usaioudoas";
+
+        $this->expectException($this->qtype->valida_funcao($funcao, null));
+    }
+}
